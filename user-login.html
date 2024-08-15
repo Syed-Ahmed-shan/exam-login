@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>User Login</h2>
+        <form id="userLoginForm">
+            <label for="userEmail">Email:</label>
+            <input type="email" id="userEmail" required>
+            <label for="userPassword">Password:</label>
+            <input type="password" id="userPassword" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('userLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value;
+            const password = document.getElementById('userPassword').value;
+
+            const response = await fetch('/login/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                window.location.href = '/exam.html';
+            } else {
+                alert('Login failed. Please check your credentials and try again.');
+            }
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

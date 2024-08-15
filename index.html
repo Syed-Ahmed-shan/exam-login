@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+         body {
+            margin: 0;
+            padding: 0;
+        }
+        /* Styling for the h1 headline */
+        h1 {
+           
+            text-align: center;
+            background-color: #f0f0f0; /* Light grey background */
+            padding: 20px;
+            border-radius: 10px; /* Rounded corners */
+            border: 2px solid #007BFF; /* Blue border */
+            margin-top: -510px;
+            margin-left: -250px;
+            font-size: 2em;
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 80%; /* Adjust width of underline */
+            height: 4px;
+            background-color: #007BFF; /* Blue underline */
+            margin: 0 auto;
+            position: absolute;
+            left: 10%;
+            bottom: -10px; /* Adjust position below the text */
+        }
+
+        
+
+        /* Styling for the buttons */
+        .logfrom {
+            text-align: center;
+            margin-top: 3px;
+            margin-left: -500px;
+            
+        }
+
+        .log {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .log:hover {
+            background-color: #3c4f62a2; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Online Examination System</h1>
+    <div class="logfrom">
+        
+        <button class="log" onclick="location.href='admin-login.html'">Admin Login</button>
+        <button class="log" onclick="location.href='user-login.html'">User Login</button>
+        <button class="log" onclick="location.href='user-register.html'">Register your ID</button>
+    </div>
+</body>
+</html>

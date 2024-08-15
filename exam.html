@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objective Exam</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="exam-container">
+        <h2>Objective Exam</h2>
+        <form id="examForm">
+            <div id="questionsContainer"></div>
+            <button type="submit">Submit Exam</button>
+        </form>
+    </div>
+
+    <script>
+        async function loadMCQs() {
+            const response = await fetch('/api/mcqs');
+            const mcqs = await response.json();
+
+            const mcqContainer = document.getElementById('mcqContainer');
+            mcqs.forEach((mcq, index) => {
+                const mcqDiv = document.createElement('div');
+                mcqDiv.innerHTML = `
+                    <p>${index + 1}. ${mcq.question}</p>
+                    ${mcq.options.map((option, i) => `
+                        <label>
+                            <input type="radio" name="question${index}" value="${option}">
+                            ${option}
+                        </label>
+                    `).join('<br>')}
+                `;
+                mcqContainer.appendChild(mcqDiv);
+            });
+        }
+
+        document.getElementById('examForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const answers = [];
+            const mcqContainer = document.getElementById('mcqContainer');
+            const questions = mcqContainer.querySelectorAll('div');
+
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('input[type="radio"]:checked');
+                answers.push({
+                    questionIndex: index,
+                    answer: selectedOption ? selectedOption.value : null
+                });
+            });
+
+            const response = await fetch('/submit-exam', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ answers })
+            });
+
+            if (response.ok) {
+                alert('Exam submitted successfully!');
+            } else {
+                alert('Failed to submit the exam. Please try again.');
+            }
+        });
+
+        loadMCQs();
+    </script>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
